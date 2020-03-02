@@ -73,14 +73,17 @@ class Player:
             print('{} heeft {} kaarten vast.'.format(self.name, len(self.hand)))
 
     def remove_pairs(self):
-        cards = self.hand[:]
         pairs = []
-        for j in len(self.hand):
-            for i in range(j+1, len(self.hand)):
-                pass
-        for pair in pairs:
-            self.hand.remove(pair[0])
-            self.hand.remove(pair[1])
+        j = 1
+        while 0 < j <= len(self.hand):
+            card1 = self.hand.pop(len(self.hand) - j)
+            card2 = self.has_card(card1, question=False)
+            if card2:
+                pairs.append([card1, card2])
+                self.score += 1
+            else:
+                self.hand.append(card1)
+            j += 1
         return pairs
 
     def ask_user_input(self):
